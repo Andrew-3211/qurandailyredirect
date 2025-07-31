@@ -60,24 +60,31 @@
   <script>
     const downloadBtn = document.getElementById("downloadBtn");
 
-    const isInAppBrowser = () => {
+    // Function to check if the user is in an in-app browser
+    function isInAppBrowser() {
       const ua = navigator.userAgent || navigator.vendor || window.opera;
-      return ua.includes("FB") || ua.includes("Instagram") || ua.includes("TikTok") || ua.includes("Twitter");
-    };
+      return (
+        ua.includes("FB") ||
+        ua.includes("Instagram") ||
+        ua.includes("TikTok") ||
+        ua.includes("Twitter") ||
+        ua.includes("LinkedIn") ||
+        ua.includes("Snapchat")
+      );
+    }
 
-    const handleVisibilityChange = () => {
-      if (!document.hidden) {
-        // User switched to Safari browser
-        downloadBtn.style.display = "inline-block";
-      }
-    };
+    // Function to check if in Safari or standalone browser
+    function isStandaloneBrowser() {
+      return (
+        window.navigator.standalone ||             // iOS PWA
+        document.referrer === "" ||                // Direct open
+        !isInAppBrowser()
+      );
+    }
 
-    if (!isInAppBrowser()) {
-      // Already in Safari
+    if (isStandaloneBrowser()) {
+      // Only show button if fully outside in Safari or Chrome
       downloadBtn.style.display = "inline-block";
-    } else {
-      // Inside TikTok – wait for "Open in browser"
-      document.addEventListener("visibilitychange", handleVisibilityChange);
     }
   </script>
 </body>
