@@ -24,6 +24,7 @@
       height: 120px;
       margin-bottom: 30px;
       border-radius: 28px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
     .message {
       background-color: rgba(0, 0, 0, 0.2);
@@ -60,31 +61,20 @@
   <script>
     const downloadBtn = document.getElementById("downloadBtn");
 
-    // Function to check if the user is in an in-app browser
-    function isInAppBrowser() {
-      const ua = navigator.userAgent || navigator.vendor || window.opera;
-      return (
-        ua.includes("FB") ||
-        ua.includes("Instagram") ||
-        ua.includes("TikTok") ||
-        ua.includes("Twitter") ||
-        ua.includes("LinkedIn") ||
-        ua.includes("Snapchat")
-      );
-    }
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+    const isTiktokBrowser = /musical_ly_|BytedanceWebview/.test(userAgent);
 
-    // Function to check if in Safari or standalone browser
-    function isStandaloneBrowser() {
-      return (
-        window.navigator.standalone ||             // iOS PWA
-        document.referrer === "" ||                // Direct open
-        !isInAppBrowser()
-      );
-    }
-
-    if (isStandaloneBrowser()) {
-      // Only show button if fully outside in Safari or Chrome
+    if (!isTiktokBrowser) {
+      // If they're already in Safari or Chrome, show the button immediately
       downloadBtn.style.display = "inline-block";
+    } else {
+      // If inside TikTok, wait for them to open in browser
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) {
+          // User switched from TikTok shell → Safari
+          downloadBtn.style.display = "inline-block";
+        }
+      });
     }
   </script>
 </body>
