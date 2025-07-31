@@ -58,13 +58,26 @@
   <button id="downloadBtn" onclick="window.location.href='https://apps.apple.com/app/id6747687797'">View in the App Store</button>
 
   <script>
+    const downloadBtn = document.getElementById("downloadBtn");
+
     const isInAppBrowser = () => {
       const ua = navigator.userAgent || navigator.vendor || window.opera;
       return ua.includes("FB") || ua.includes("Instagram") || ua.includes("TikTok") || ua.includes("Twitter");
     };
 
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        // User switched to Safari browser
+        downloadBtn.style.display = "inline-block";
+      }
+    };
+
     if (!isInAppBrowser()) {
-      document.getElementById("downloadBtn").style.display = "inline-block";
+      // Already in Safari
+      downloadBtn.style.display = "inline-block";
+    } else {
+      // Inside TikTok – wait for "Open in browser"
+      document.addEventListener("visibilitychange", handleVisibilityChange);
     }
   </script>
 </body>
