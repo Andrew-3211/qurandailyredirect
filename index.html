@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quran Daily Redirect</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(160deg, #0d5d5d, #46a5a5);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      color: white;
+    }
+    .icon {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 30px;
+    }
+    .message {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      border-radius: 16px;
+      font-size: 18px;
+      max-width: 90%;
+    }
+    .bold {
+      font-weight: 600;
+    }
+  </style>
+  <script>
+    const isInAppBrowser = () => {
+      const ua = navigator.userAgent || navigator.vendor || window.opera;
+      return ua.includes("FB") || ua.includes("Instagram") || ua.includes("TikTok") || ua.includes("Twitter");
+    };
+
+    if (!isInAppBrowser()) {
+      window.location.href = "https://apps.apple.com/app/id6747687797";
+    }
+  </script>
+</head>
+<body>
+  <img class="icon" src="app-icon.png" alt="Quran Daily App Icon" />
+  <div class="message">
+    Tap the 3 dots at the top right and choose <span class="bold">'Open in browser'</span> to download <span class="bold">Quran Daily</span>.
+  </div>
+</body>
+</html>
